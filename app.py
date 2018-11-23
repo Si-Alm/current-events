@@ -43,7 +43,6 @@ def hello():
         landingPage = str(request.form.get('landingPage'))
         newsType = str(request.form.get('newsType'))
         numberOfArticles = int(request.form.get('numberOfArticles'))
-        print newsType
         links3 = getLinks(landingPage, newsType, numberOfArticles)
         for i in links3:
             links.append(i)
