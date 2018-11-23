@@ -18,7 +18,6 @@ class ReusableForm(Form):
 def getLinks(landingPage, newsType, numberOfArticles):
     del links[:]
     page = requests.get(landingPage + "/" + newsType)
-    print landingPage + "/" + newsType
     tree = html.fromstring(page.content)
     links0 = tree.xpath('//a[@data-pb-local-content-field="web_headline"]')
     links1 = []
@@ -39,7 +38,6 @@ def hello():
     articleTwoLink = ""
     form = ReusableForm(request.form)
  
-    #print form.errors
  
     if request.method == 'POST':
         landingPage = str(request.form.get('landingPage'))
