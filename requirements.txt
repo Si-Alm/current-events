@@ -1,5 +1,6 @@
+python==2.7.12
 Flask==1.0.2
-gunicron==19.9.0
+gunicorn==19.9.0
 Jinja2==2.8
 itsdangerous==1.1.0
 MarkupSafe==0.23
