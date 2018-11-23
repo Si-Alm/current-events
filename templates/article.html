@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Current Event Generator</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}" />
+    </head>
+    <body>
+        <div id="whole-div">
+            <div id="header" class="center-element">
+                <h1 style="margin-top: 5%;">Current Event Generator</h1>
+                <br />
+                <h3 style="font-size: .8em; font-weight: lighter; color: rgb(189, 184, 184)">
+                    Select a type of article and number of articles from the drop down menus, then your links will be generated
+                </h3>
+                <br />
+                <h3 style="font-size: .8em; font-weight: lighter; color: rgb(189, 184, 184)">
+                    The links will take a moment (up to a couple of minutes) to load
+                </h3>
+            </div>
+            <div id="form-body">
+                <form action="" method="post">
+                    {{ form.csrf }}
+        
+                    <div class="input text">
+                        <br />
+                        <label for="landingPage">Select a News Source(only one available right now)</label>
+                        <select id="landingPage" name="landingPage">
+                            <option value="https://www.washingtonpost.com">Washington Post</option>
+                        </select>
+                    </div>
+                    <div class="form-div">
+                        <label for="newsType">Select a Type of News</label>
+                        <select id="newsType" name="newsType">
+                            <option value="politics">Politics</option>
+                            <option value="world">World</option>
+                            <option value="local">Local</option>
+                        </select>
+                    <div class="form-div">
+                        <label for="numberOfArticles">How many articles to generate</label>
+                        <select id="numberOfArticles" name="numberOfArticles">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                        <div class="input submit">
+                            <input style="width: 7.5em;" type="submit" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div id="article-body">
+                        {% for i in links %}
+                            <p style="text-align: left;" class="link">{{ i }}</p>
+                            <br>
+                        {% endfor %}
+                    
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
