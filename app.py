@@ -25,8 +25,6 @@ def getLinks(landingPage, newsType, numberOfArticles):
     tree = html.fromstring(page.content)
     links0 = []
     exLinks0 = []
-    print landingPage + "/" + newsType
-    print landingPage
     if landingPage=="https://www.washingtonpost.com":
         links0 = tree.xpath('//a[@data-pb-local-content-field="web_headline"]')
     elif "https://www.foxnews.com" in pageLink:
@@ -35,12 +33,9 @@ def getLinks(landingPage, newsType, numberOfArticles):
         links0 = links0+exLinks0
     elif pageLink == "https://www.foxbusiness.com":
         links0 = tree.xpath('//h3[@data-v-7cf20f0a=""]/a')
-    for i in links0:
-        print i.get('href')
     links1 = []
     for i in range(0, numberOfArticles):
         tempNum = randint(0, (len(links0)-1))
-        print tempNum
         if landingPage=="https://www.foxnews.com":
             if "https://" in links0[tempNum].get('href'):
                 links1.append(links0[tempNum].get('href'))
