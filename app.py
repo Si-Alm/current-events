@@ -10,23 +10,50 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+app.config['SECRET_KEY'] = 'x983mhwoadx85m37g94pwdskgdb69h'
 links = []
 class ReusableForm(Form):
     landingPage = TextField('Landing Page:', validators=[validators.required()])
 
 def getLinks(landingPage, newsType, numberOfArticles):
     del links[:]
-    page = requests.get(landingPage + "/" + newsType)
+    pageLink = landingPage + "/" + newsType
+    if landingPage == "https://www.foxnews.com" and newsType =="business":
+        pageLink = "https://www.foxbusiness.com"
+
+    page = requests.get(pageLink)
     tree = html.fromstring(page.content)
-    links0 = tree.xpath('//a[@data-pb-local-content-field="web_headline"]')
+    links0 = []
+    exLinks0 = []
+    print landingPage + "/" + newsType
+    print landingPage
+    if landingPage=="https://www.washingtonpost.com":
+        links0 = tree.xpath('//a[@data-pb-local-content-field="web_headline"]')
+    elif "https://www.foxnews.com" in pageLink:
+        links0 = tree.xpath('//h4[@class="title"]/a')
+        exLinks0 = tree.xpath('//h5[@class="title"]/a')
+        links0 = links0+exLinks0
+    elif pageLink == "https://www.foxbusiness.com":
+        links0 = tree.xpath('//h3[@data-v-7cf20f0a=""]/a')
+    for i in links0:
+        print i.get('href')
     links1 = []
-    count = 0
     for i in range(0, numberOfArticles):
-        count+=1
-        tempNum = randint(0, len(links))
-        links1.append("Article " + str(count) + ": " + links0[tempNum].get('href'))
-        links0.pop(tempNum)
+        tempNum = randint(0, (len(links0)-1))
+        print tempNum
+        if landingPage=="https://www.foxnews.com":
+            if "https://" in links0[tempNum].get('href'):
+                links1.append(links0[tempNum].get('href'))
+            else:
+                if "https://www.foxnews.com" in pageLink:
+                    links1.append("https://www.foxnews.com" + links0[tempNum].get('href'))
+                elif pageLink == "https://www.foxbusiness.com":
+                    links1.append("https://www.foxbusiness.com" + links0[tempNum].get('href'))
+            links0.pop(tempNum)
+        elif landingPage=="https://www.washingtonpost.com":
+            links1.append(links0[tempNum].get('href'))
+            links0.pop(tempNum)
+        
     return links1
 
 
@@ -47,17 +74,6 @@ def hello():
         for i in links3:
             links.append(i)
     
-        """
-        if form.validate():
-            # Save the comment here.
-            flash(articleOneHead)
-            flash(articleOneLink)
-
-            flash(articleTwoHead)
-            flash(articleTwoLink)
-        else:
-            flash('All the form fields are required. ')
-        """
     return render_template('article.html', form=form, links=links)
  
 if __name__ == "__main__":

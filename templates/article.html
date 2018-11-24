@@ -16,6 +16,11 @@
                 <h3 style="font-size: .8em; font-weight: lighter; color: rgb(189, 184, 184)">
                     The links will take a moment (up to a couple of minutes) to load
                 </h3>
+                <br />
+                <h4 style="font-size: .7em; font-weight: lighter; color: rgb(189, 184, 184)">
+                    Make sure to check the date on articles, some news sources keep older articles catalogued
+                </h4>
+                <br />
             </div>
             <div id="form-body">
                 <form action="" method="post">
@@ -23,9 +28,10 @@
         
                     <div class="input text">
                         <br />
-                        <label for="landingPage">Select a News Source(only one available right now)</label>
+                        <label for="landingPage">Select a News Source(only two available right now)</label>
                         <select id="landingPage" name="landingPage">
                             <option value="https://www.washingtonpost.com">Washington Post</option>
+                            <option value="https://www.foxnews.com">Fox News</option>
                         </select>
                     </div>
                     <div class="form-div">
@@ -33,8 +39,9 @@
                         <select id="newsType" name="newsType">
                             <option value="politics">Politics</option>
                             <option value="world">World</option>
-                            <option value="local">Local</option>
+                            <option value="business">Business</option>
                         </select>
+                    </div>
                     <div class="form-div">
                         <label for="numberOfArticles">How many articles to generate</label>
                         <select id="numberOfArticles" name="numberOfArticles">
@@ -60,7 +67,10 @@
                 <br />
                 <div id="article-body">
                         {% for i in links %}
-                            <p style="text-align: left;" class="link">{{ i }}</p>
+                            <p style="text-align: left;" class="link">
+                                <b>Article {{loop.index}}: </b>
+                                <a href="{{ i }}" >{{ i }}</a>
+                            </p>
                             <br>
                         {% endfor %}
                     
