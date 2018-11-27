@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Current Event Generator</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}" />
+    </head>
+    <body>
+        <div id="whole-div">
+            <div id="header" class="center-element">
+                <h1 style="margin-top: 5%;">Current Event Text Scraper</h1>
+                <br />
+                
+                <h3 style="font-size: .8em; font-weight: lighter; color: rgb(189, 184, 184)">
+                    Copy and enter one of your generated links to scrape the text from it
+                </h3>
+                <br />
+                <h3 style="font-size: .8em; font-weight: lighter; color: rgb(189, 184, 184)">
+                    The link must be copy and pasted exactly for it to work
+                </h3>
+                <br />
+            </div>
+            <div id="form-body">
+               <form action="" method="post">
+                    
+                 <label for="articleLink">Enter your article link</label>
+                 <input type="text" name="articleLink" id="articleLink">
+                 <input type="submit" value="Scrape">
+               </form>
+            </div>
+            <div id="article-body">
+            
+              <h1 style="text-align:center;">
+                {{ articleHead }}
+              </h1>
+              <p style="text-indent: 15px;">
+                {{ articleText }}
+              </p>
+            </div>
+        </div>
+    </body>
+</html>
