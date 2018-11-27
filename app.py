@@ -15,6 +15,26 @@ links = []
 class ReusableForm(Form):
     landingPage = TextField('Landing Page:', validators=[validators.required()])
 
+
+@app.route("/articletext")
+def textScrape():
+    return render_template('articletext.html')
+
+@app.route("/articletext", methods=['GET', 'POST'])
+def getText():
+    articleHead = "Article: "
+    articleBody = ""
+    form = ReusableForm(request.form)
+    if request.method == 'POST':
+        landingPage = str(request.form.get('articleLink'))
+        page = requests.get(landingPage)
+        tree = html.fromstring(page.content)
+        text = tree.xpath("//p/text()")
+        for i in text:
+            articleBody += i
+    return render_template('articletext.html', articleText=articleBody, articleHead=articleHead)
+
+
 def getLinks(landingPage, newsType, numberOfArticles):
     del links[:]
     pageLink = landingPage + "/" + newsType
@@ -53,7 +73,7 @@ def getLinks(landingPage, newsType, numberOfArticles):
 
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def main():
     articleOneHead = ""
     articleTwoHead = ""
     articleOneLink = ""
