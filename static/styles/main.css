@@ -70,3 +70,16 @@ p {
     text-indent: 25px;
     line-height: 150%;
 }
+
+a:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#pageRoute:visited {
+    color: #00fff2;
+}
+
+#pageRoute {
+    color: #00fff2;
+}
